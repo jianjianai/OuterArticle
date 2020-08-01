@@ -3,6 +3,7 @@ package cn.jji8.OuterArticle;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -46,8 +47,11 @@ public class main extends JavaPlugin implements Listener {
     /*
     * 玩家点击物品栏时触发的事件
     * */
-    @EventHandler
+    @EventHandler(priority=EventPriority.MONITOR)
     public void wanjiadianji(InventoryClickEvent a){
+        if(a.isCancelled()){
+            return;
+        }
         if(a.getRawSlot()==-999){
             if(a.getCursor().getType().equals(Material.AIR)){
                 if(!getConfig().getString("点击时后台命令").equals("-")){
